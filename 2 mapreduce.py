@@ -1,3 +1,6 @@
+#
+https://colab.research.google.com/drive/1tlxx_Ed7BGfl6RM1_yhqnCmHUy2uDrrE
+
 from mrjob.job import MRJob
 from datetime import datetime
 import json
@@ -35,3 +38,6 @@ class LogAnalysis(MRJob):
 
 if __name__ == "__main__":
     LogAnalysis.run()
+
+
+
