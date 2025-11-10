@@ -1,6 +1,4 @@
-#
-https://colab.research.google.com/drive/1tlxx_Ed7BGfl6RM1_yhqnCmHUy2uDrrE
-
+%%writefile log_analysis.py
 from mrjob.job import MRJob
 from datetime import datetime
 import json
@@ -16,7 +14,7 @@ class LogAnalysis(MRJob):
     def reducer(self, user, values):
         events = []
         for v in values:
-            timestamp, action = json.loads(v)  
+            timestamp, action = json.loads(v)
             events.append((timestamp, action))
 
         total = 0
@@ -26,7 +24,7 @@ class LogAnalysis(MRJob):
             try:
                 t = datetime.fromisoformat(timestamp)
             except ValueError:
-                continue  
+                continue
 
             if action == "login":
                 login_time = t
@@ -34,10 +32,7 @@ class LogAnalysis(MRJob):
                 total += (t - login_time).total_seconds()
                 login_time = None
 
-        yield user, round(total / 3600, 2)  
+        yield user, round(total / 3600, 2)
 
 if __name__ == "__main__":
     LogAnalysis.run()
-
-
-
